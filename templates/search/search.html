@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Just Some Games | Search{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/search_sidebar.html' %}
+                <main class="col-md-9" style="padding:20px;">
+                    {% if word %}
+                        <div class="row mb-3">
+                            <div class="col-12 text-center">
+                                <strong>{{ word }}</strong>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong>Bulletin Board posts:</strong>
+                        </div>
+                    </div>
+                    {% for bt in bb_titles %}
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <article class="card">
+                                <div class="card-body text-center" style="padding:15px;">
+                                    <span style="font-size:.75em;">* {{ bt.category }} *</span><br>
+                                    <a href="{% url 'bb:post_detail' bt.id %}"><strong>{{ bt.title }}</strong></a>
+                                </div> <!-- card-body .// -->
+                            </article> <!-- order-group.// -->
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for bc in bb_content %}
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <article class="card">
+                                    <div class="card-body text-center" style="padding:15px;">
+                                        <span style="font-size:.75em;">* {{ bc.category }} *</span><br>
+                                        <a href="{% url 'bb:post_detail' bc.id %}"><strong>{{ bc.title }}</strong></a>
+                                    </div> <!-- card-body .// -->
+                                </article> <!-- order-group.// -->
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong>Calendar events:</strong>
+                        </div>
+                    </div>
+                    {% for ct in cal_titles %}
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <article class="card">
+                                    <header class="card-header">
+                                        <h5 class="d-inline-block mr-3">{{ ct.start_time }}</h5>
+                                    </header>
+                                    <div class="card-body text-center" style="padding:15px;">
+                                        <a href="{% url 'cal:event_detail' ct.id %}"><strong>{{ ct.title }}</strong></a>
+                                    </div> <!-- card-body .// -->
+                                </article> <!-- order-group.// -->
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for cc in cal_content %}
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <article class="card">
+                                    <header class="card-header">
+                                        <h5 class="d-inline-block mr-3">{{ cc.start_time }}</h5>
+                                    </header>
+                                    <div class="card-body text-center" style="padding:15px;">
+                                        <a href="{% url 'cal:event_detail' cc.id %}"><strong>{{ cc.title }}</strong></a>
+                                    </div> <!-- card-body .// -->
+                                </article> <!-- order-group.// -->
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong>Directory:</strong>
+                        </div>
+                    </div>
+                    {% for dn in dir_names %}
+                        <article class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="collapsible"><strong class="d-inline-block mr-3">{{ dn.display_name }}</strong></div>
+                                        <div class="content">
+                                            <br>
+                                            {% if dn.phone_number %}
+                                                <p>{{ dn.phone_number }}</p>
+                                            {% endif %}
+                                            {% if dn.email_address %}
+                                                <p><a href="mailto:{{ dn.email_address }}">{{ dn.email_address }}</a></p>
+                                                {% endif %}
+                                            {% if dn.website %}
+                                                <p><a href="{{ dn.website }}">{{ dn.website }}</a></p>
+                                            {% endif %}
+                                            {% if dn.content %}
+                                                <p>{{ dn.content | safe | linebreaks }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div> <!-- row.// -->
+                            </div> <!-- card-body .// -->
+                        </article> <!-- order-group.// -->
+                    {% endfor %}
+                    {% for dc in dir_content %}
+                        <article class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="collapsible"><strong class="d-inline-block mr-3">{{ dc.display_name }}</strong></div>
+                                        <div class="content">
+                                            <br>
+                                            {% if dc.phone_number %}
+                                                <p>{{ dc.phone_number }}</p>
+                                            {% endif %}
+                                            {% if dc.email_address %}
+                                                <p><a href="mailto:{{ dc.email_address }}">{{ dc.email_address }}</a></p>
+                                                {% endif %}
+                                            {% if dc.website %}
+                                                <p><a href="{{ dc.website }}">{{ dc.website }}</a></p>
+                                            {% endif %}
+                                            {% if dc.content %}
+                                                <p>{{ dc.content | safe | linebreaks }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div> <!-- row.// -->
+                            </div> <!-- card-body .// -->
+                        </article> <!-- order-group.// -->
+                    {% endfor %}
+                </main>
+            </div> <!-- row.// -->
+        </div>
+    </section>
+{% endblock content %}
+
+{% block more_scripts %}
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            }
+          });
+        }
+    </script>
+{% endblock more_scripts %}

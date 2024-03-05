@@ -1,0 +1,11 @@
+# Project exclude paths
+/.jsg_venv/
+.env
+/.idea/
+db.sqlite3
+/media/
+/staticfiles/
+/.env/
+/.venv/
+/env/
+/venv/

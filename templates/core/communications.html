@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block title %}JSG | Staff | Communications{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/staff_sidebar.html' %}
+                <main class="col-md-9">
+                    <article class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong class="d-inline-block mr-3">Communications</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% for c in contacts %}
+                    <article class="card">
+                        <header class="card-header">
+                            <strong class="d-inline-block mr-3">{{ c.subject }} From: {{ c.sent_by.username }}</strong>
+                        </header>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            Message:<br>
+                                            {{ c.message | safe | linebreaks }}<br><br>
+                                            Reply:<br>
+                                            <form action="{% url 'core:communications' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="comm_id" value="{{ c.id }}">
+                                                <textarea name="reply" rows="5" style="width:100%" class="form-control border border-success"></textarea><br><br>
+                                                <button>Send reply</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </main>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

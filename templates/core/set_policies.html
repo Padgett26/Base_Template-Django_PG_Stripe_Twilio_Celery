@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block title %}JSG | Staff | Set Policies{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/staff_sidebar.html' %}
+                <main class="col-md-9">
+                    <form action="{% url 'core:set_policies' %}" method="POST">
+                        {% csrf_token %}
+                        <article class="card">
+                            <header class="card-header">
+                                <strong class="d-inline-block mr-3">New policy: <input type="text" name="title" value="" style=" width:100%;" class="form-control border border-success"></strong>
+                            </header>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="hidden" name="p_id" value="new">
+                                                <input type="hidden" name="delete" value="0">
+                                                Answer:<br>
+                                                <textarea name="policy" rows="5" style="width:100%" class="form-control border border-success"></textarea><br><br>
+                                                <input type="checkbox" name="active" value="1" class="border border-success" checked> Show this policy on the site<br><br>
+                                                <button>Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </form>
+                    {% for p in policies %}
+                        <form action="{% url 'core:set_policies' %}" method="POST">
+                            {% csrf_token %}
+                            <article class="card">
+                                <header class="card-header">
+                                    <strong class="d-inline-block mr-3">Title: <input type="text" name="title" value="{{ p.title }}" style=" width:100%;" class="form-control border border-success"></strong>
+                                </header>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <input type="hidden" name="p_id" value="{{ p.id }}">
+                                                    Policy:<br>
+                                                    <textarea name="policy" rows="5" style="width:100%" class="form-control border border-success">{{ p.policy }}</textarea><br><br>
+                                                    {% if p.active %}
+                                                        <input type="checkbox" name="active" value="1" class="border border-success" checked> Show this policy on the site<br><br>
+                                                    {% else %}
+                                                        <input type="checkbox" name="active" value="1" class="border border-success"> Show this policy on the site<br><br>
+                                                    {% endif %}
+                                                    <input type="checkbox" name="delete" value="1" class="border border-success"> Delete this question and answer<br><br>
+                                                    <button>Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </form>
+                    {% endfor %}
+                </main>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

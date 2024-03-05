@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Just Some Games | Donate Checkout{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="row">
+            <div class="col-3">&nbsp;</div>
+                <div class="col-6">
+                    <div class="card mx-auto" style="margin-top:100px;">
+                        <div class="card-body text-center">
+                            <h4 class="card-title mb-4">Donate to CNCO Bulletin Board</h4><br><br>
+                            Amount:<br>
+                            $ {{ amount }}<br><br>
+                            <form method="POST" action="{% url 'core:payment' %}">
+                                {% csrf_token %}
+                                <div class="form-group mb-3">
+                                    <input type="hidden" name="order_number" value="{{ order_number }}">
+                                </div>
+                                <div class="form-group">
+                                    <button class="button is-primary" id="submitBtn">Payment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-3">&nbsp;</div>
+        </div>
+    </section>
+{% endblock content %}

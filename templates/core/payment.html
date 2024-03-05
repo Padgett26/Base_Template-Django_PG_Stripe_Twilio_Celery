@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Just Some Games | Payment page{% endblock title %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+    <section class="section">
+        <div class="container">
+          <button class="button is-primary" id="submitBtn">Purchase!</button>
+        </div>
+    </section>
+</form>
+{% endblock content %}

@@ -1,0 +1,15 @@
+<aside class="col-md-3 mb-3">
+    <!--   SIDEBAR   -->
+    <ul class="list-group">
+        <a class="list-group-item{% if '/communications/' in request.path %} bg-success text-white{% endif %}" href="{% url 'core:communications' %}">
+            Communications
+            {% if comm_count >= 1 %}
+                &nbsp;&nbsp;{{ comm_count }}
+            {% endif %}
+        </a>
+        <a class="list-group-item{% if '/add_category/' in request.path %} bg-success text-white{% endif %}" href="{% url 'core:add_category' %}">Add category</a>
+        <a class="list-group-item{% if '/set_policies/' in request.path %} bg-success text-white{% endif %}" href="{% url 'core:set_policies' %}">Set Policies</a>
+        <a class="list-group-item{% if '/set_faq/' in request.path %} bg-success text-white{% endif %}" href="{% url 'core:set_faq' %}">Set FAQ</a>
+    </ul>
+    <!--   SIDEBAR .//END   -->
+</aside>

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Just Some Games | My profile{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/dashboard_sidebar.html' %}
+                <main class="col-md-9">
+                    <article class="card">
+                        <header class="card-header">
+                            <strong class="d-inline-block mr-3">Edit your profile information</strong>
+                        </header>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="{% url 'account:profile' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                                {{ forma.email }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Phone Number</label>
+                                                {{ forma.phone_number }}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label>Preferred contact method</label>
+                                                {% if forma.contact_by_phone %}
+                                                Email: <input type="radio" name="contact_by_phone" value="0">
+                                                Phone SMS: <input type="radio" name="contact_by_phone" value="1" checked>
+                                                {% else %}
+                                                Email: <input type="radio" name="contact_by_phone" value="0" checked>
+                                                Phone SMS: <input type="radio" name="contact_by_phone" value="1">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-5">
+                                            <div class="col-md-6">
+                                                <label>First name</label>
+                                                {{ forma.first_name }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Last name</label>
+                                                {{ forma.last_name }}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                If you wish to have your information included in the directory, please fill out whatever information you want to share below.
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label>Share this information in the directory: </label>
+                                                {% if directory %}
+                                                    <input type="checkbox" name="directory" value="1" checked>
+                                                {% else %}
+                                                    <input type="checkbox" name="directory" value="1">
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Display name: </label>
+                                                {{ formp.display_name }}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label>Any information / description, you want to add: </label>
+                                                {{ formp.content }}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <span style="font-weight:bold;">Contact information</span><br><br>
+                                                <label>Phone number: </label>
+                                                {{ formp.phone_number }}<br>
+                                                <label>Email address: </label>
+                                                {{ formp.email_address }}<br>
+                                                <label>Website: </label>
+                                                {{ formp.website }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span style="font-weight:bold;">Mailing Address</span><br><br>
+                                                <label>Address line 1:</label>
+                                                {{ formp.address1 }}<br>
+                                                <label>Address line 2:</label>
+                                                {{ formp.address2 }}<br>
+                                                <label>City, State, Zip:</label>
+                                                {{ formp.city_state_zip }}
+                                            </div>
+                                        </div>
+                                        <button>Save</button>
+                                    </form>
+                                </div>
+                            </div> <!-- row.// -->
+                        </div> <!-- card-body .// -->
+                    </article> <!-- order-group.// -->
+                </main>
+            </div> <!-- row.// -->
+        </div>
+    </section>
+{% endblock content %}

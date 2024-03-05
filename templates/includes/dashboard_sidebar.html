@@ -1,0 +1,9 @@
+<aside class="col-md-3 mb-3">
+    <!--   SIDEBAR   -->
+    <ul class="list-group">
+        <a class="list-group-item {% if '/dashboard/' in request.path %}bg-success text-white{% endif %}" href="{% url 'account:dashboard' %}"> Dashboard </a>
+        <a class="list-group-item {% if '/profile/' in request.path %}bg-success text-white{% endif %}" href="{% url 'account:profile' %}"> Edit Profile </a>
+        <a class="list-group-item {% if '/change_pwd/' in request.path %}bg-success text-white{% endif %}" href="{% url 'account:change_pwd' %}"> Change Password </a>
+    </ul>
+    <!--   SIDEBAR .//END   -->
+</aside>

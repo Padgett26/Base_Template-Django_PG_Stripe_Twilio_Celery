@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Just Some Games | Donate{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="row">
+            <div class="col-3">&nbsp;</div>
+                <div class="col-6">
+                    <div class="card mx-auto" style="margin-top:100px;">
+                        <div class="card-body text-center">
+                            <h4 class="card-title mb-4">Donate to Just Some Games</h4>
+                            Keeping a website online costs money. If you would like to donate a small amount to help cover costs, it would be truly appreciated, and this website can remain a free resource for the people of Cheyenne Co, Kansas.<br><br>
+                            <form action="{% url 'core:checkout' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group mb-3">
+                                    <label for="amount">Amount to donate</label>
+                                    <input type="number" class="form-control" id="amount" value="10" name="amount" min="5" step="1">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Checkout</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-3">&nbsp;</div>
+        </div>
+    </section>
+{% endblock content %}

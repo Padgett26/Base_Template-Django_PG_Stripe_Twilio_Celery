@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Just Some Games | Update password{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/dashboard_sidebar.html' %}
+                <main class="col-md-9">
+                    <article class="card">
+                        <header class="card-header">
+                            <strong class="d-inline-block mr-3">Update password</strong>
+                        </header>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="{% url 'account:change_pwd' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="col-12 mb-3">
+                                            <label>Current password</label>
+                                            <input type="password" name="current_pwd" placeholder="Current password" class="form-control border border-success" required>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label>Create new password</label>
+                                            <input type="password" name="new_pwd" placeholder="Create new password" class="form-control border border-success" required>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label>Confirm new password</label>
+                                            <input type="password" name="confirm_new_pwd" placeholder="Confirm new password" class="form-control border border-success" required>
+                                        </div>
+                                        <button>Save</button>
+                                    </form>
+                                </div>
+                            </div> <!-- row.// -->
+                        </div> <!-- card-body .// -->
+                    </article> <!-- order-group.// -->
+                </main>
+            </div> <!-- row.// -->
+        </div>
+    </section>
+{% endblock content %}

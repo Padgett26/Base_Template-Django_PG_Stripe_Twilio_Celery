@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Just Some Games | Contact Us{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    &nbsp;
+                </div>
+                <main class="col-md-8">
+                    <article class="card">
+                        <header class="card-header">
+                            {% if done %}
+                                <strong class="d-inline-block mr-3">Here is the message I saved:</strong>
+                            {% else %}
+                                <strong class="d-inline-block mr-3">What can I do for you {{ user.username }}?</strong>
+                            {% endif %}
+                        </header>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card" style="text-align: center;">
+                                        <div class="card-body">
+                                            {% if done %}
+                                                <span style="font-weight:bold;">Subject *</span><br>
+                                                {{ subject }}
+                                                <br><br>
+                                                <span style="font-weight:bold;">Message *</span><br>
+                                                {{ message }}
+                                            {% else %}
+                                            <form action="{% url 'core:contact_us' %}" method="POST">
+                                                {% csrf_token %}
+                                                <label><span style="font-weight:bold;">Subject *</span></label>
+                                                {{ form.subject }}
+                                                <br><br>
+                                                <label><span style="font-weight:bold;">Message *</span></label>
+                                                {{ form.message }}
+                                                <br><br>
+                                                <button>Send</button>
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- row.// -->
+                        </div> <!-- card-body .// -->
+                    </article> <!-- order-group.// -->
+                </main>
+                <div class="col-2">
+                    &nbsp;
+                </div>
+            </div> <!-- row.// -->
+        </div>
+    </section>
+{% endblock content %}

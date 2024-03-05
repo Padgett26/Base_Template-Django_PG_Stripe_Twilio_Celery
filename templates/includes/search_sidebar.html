@@ -1,0 +1,10 @@
+<aside class="col-md-3 mb-3" style="padding:20px;">
+    <!--   SIDEBAR   -->
+    <strong>Search:</strong><br>
+    <form action="{% url 'search:search' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="word" value="" class="form-control border border-success"><br>
+        <button class="form-control border border-success">Search</button>
+    </form>
+    <!--   SIDEBAR .//END   -->
+</aside>

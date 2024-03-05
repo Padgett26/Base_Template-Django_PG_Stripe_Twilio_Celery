@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Just Some Games | Dashboard{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/dashboard_sidebar.html' %}
+                <main class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <article class="card">
+                                <header class="card-header">
+                                    <strong class="d-inline-block mr-3">Dashboard: </strong>
+                                    <span>{{ user.full_name }}</span>
+                                </header>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card" style="text-align: center;">
+                                                <div class="card-body">
+                                                    <p>{{ user.full_name }}</p>
+                                                    <p>{{ user.email }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- row.// -->
+                                </div> <!-- card-body .// -->
+                            </article> <!-- order-group.// -->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <article class="card">
+                                <header class="card-header">
+                                    <strong class="d-inline-block mr-3">My BB Posts: </strong>
+                                </header>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a href="{% url 'account:my_post_detail' 0 %}"><span style="font-weight:bold;">Create a new bulletin board post</span></a><br>
+                                            {% for bb in bb_posts %}
+                                                <a href="{% url 'account:my_post_detail' bb.id %}">{{ bb.title }}</a><br>
+                                            {% endfor %}
+                                        </div>
+                                    </div> <!-- row.// -->
+                                </div> <!-- card-body .// -->
+                            </article> <!-- order-group.// -->
+                        </div>
+                        <div class="col-6">
+                            <article class="card">
+                                <header class="card-header">
+                                    <strong class="d-inline-block mr-3">My Calendar Events: </strong>
+                                </header>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a href="{% url 'account:my_event_detail' 0 %}"><span style="font-weight:bold;">Create a new calendar event</span></a><br>
+                                            {% for cal in cal_events %}
+                                                <a href="{% url 'account:my_event_detail' cal.id %}">{{ cal.title }}</a><br>
+                                            {% endfor %}
+                                        </div>
+                                    </div> <!-- row.// -->
+                                </div> <!-- card-body .// -->
+                            </article> <!-- order-group.// -->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <article class="card">
+                                <header class="card-header">
+                                    <strong class="d-inline-block mr-3">Donation History: </strong>
+                                </header>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <h6>Date</h6>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h6>Amount</h6>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h6>Staus</h6>
+                                                </div>
+                                            </div>
+                                            {% for t in transactions %}
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        {{ t.created_at }}
+                                                    </div>
+                                                    <div class="col-4">
+                                                        {{ t.amount }}
+                                                    </div>
+                                                    <div class="col-4">
+                                                        {{ t.status }}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div> <!-- row.// -->
+                                </div> <!-- card-body .// -->
+                            </article> <!-- order-group.// -->
+                        </div>
+                    </div>
+                </main>
+            </div> <!-- row.// -->
+        </div>
+    </section>
+{% endblock content %}

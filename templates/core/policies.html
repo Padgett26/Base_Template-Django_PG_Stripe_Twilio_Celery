@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Just Some Games | Policies{% endblock title %}
+
+{% block content %}
+    <section class="section-content padding-y">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-12">
+                    <article class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong class="d-inline-block mr-3">Policies</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% for p in policies %}
+                        <div class="collapsible">{{ p.title }}</div>
+                        <div class="content">
+                            <div style="padding:20px 0;">{{ p.policy | safe | linebreaks }}</div>
+                        </div>
+                    {% endfor %}
+                </main>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block more_scripts %}
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            }
+          });
+        }
+    </script>
+{% endblock more_scripts %}
